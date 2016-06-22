@@ -1,0 +1,26 @@
+mysql56:
+    restart:       always
+    image:         mysql:5.6
+                         # Dockerfile : https://github.com/docker-library/mysql/blob/master/5.6/Dockerfile
+
+    container_name: mysql56_01
+
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile
+
+    volumes:
+        - ./mysql:/var/lib/mysql
+        - ./init.d:/docker-entrypoint-initdb.d
+
+
+    ports:
+#    - HOST:CONTAINER
+     - 13306:3306
+
+    environment:
+        MYSQL_ROOT_PASSWORD : pass
+        MYSQL_DATABASE      : mydb
+        MYSQL_USER          : my_user
+        MYSQL_PASSWORD      : my_pass
+

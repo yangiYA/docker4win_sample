@@ -1,0 +1,6 @@
+docker-compose.yml*
+redeme*
+init.d
+*.bat
+*.sh
+mysql56
