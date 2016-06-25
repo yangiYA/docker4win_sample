@@ -1,4 +1,5 @@
-DROP TABLE IF EXISTS `personal`;
+use mydb;
+DROP TABLE IF EXISTS `sample01`;
 
 CREATE TABLE `sample01` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

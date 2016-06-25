@@ -1,13 +1,11 @@
 @setlocal
 
-set       GIT4_WIN_DIR=C:\Program Files\Git\bin
 set DOCKER_TOOLBOX_DIR=C:\programs\DockerToolbox
 
 set VM_NAME=default
 set    HERE=%~dp0
 cd    %HERE%
 
-cd "%DOCKER_TOOLBOX_DIR%"
 docker-machine create              ^
     --driver virtualbox            ^
     --virtualbox-cpu-count "2"     ^
@@ -16,6 +14,6 @@ docker-machine create              ^
     %VM_NAME%
 
 cd %HERE%
-@endloacal
+@endlocal
 
-"%GIT4_WIN_DIR%\bash.exe" --login -i  "%DOCKER_TOOLBOX_DIR%\start.sh"
+docker-machine ssh

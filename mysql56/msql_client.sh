@@ -3,7 +3,7 @@
 HERE=$(cd $(dirname $0);pwd)
 cd $HERE
 
-. env.sh
+. ./env.sh
 
 echo .
 echo "command :"
