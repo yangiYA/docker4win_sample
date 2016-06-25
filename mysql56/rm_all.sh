@@ -1,7 +1,6 @@
 #!/bin/sh
 
-CONTAINER_NAME=mysql56_01
-
+. env.sh
 
 HERE=$(cd $(dirname $0);pwd)
 

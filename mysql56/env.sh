@@ -1,0 +1,2 @@
+CONTAINER_NAME=mysql56_01
+VM_NAME=default
