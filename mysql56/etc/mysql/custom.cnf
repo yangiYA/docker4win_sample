@@ -1,2 +1,11 @@
 [mysqld]
 character-set-server=utf8
+log-error=myerror.log
+log-warnings=1
+
+#log=myquery.log
+
+#log-slow-queries=myslow.log
+#long-query-time=30
+#log-queries-not-using-indexes
+#log-slow-admin-statements
