@@ -10,7 +10,7 @@ CREATE TABLE `sample01` (
 LOCK TABLES `sample01` WRITE;
 /*!40000 ALTER TABLE `sample01` DISABLE KEYS */;
 
-INSERT INTO `sample01` (`id`, `name`)
+INSERT INTO `sample01` (`id`, `value`)
 SELECT * FROM (SELECT 1, 'root@local') AS tmp
 WHERE NOT EXISTS (
     SELECT `id` FROM `sample01` WHERE `id` = 1

@@ -1,2 +1,10 @@
 CONTAINER_NAME=mysql56_01
+MYSQL_IMAGE=mysql:5.6
+
 VM_NAME=default
+
+HOST_PORT=3306
+VM_PORT=13306
+DOCKER_PORT=3306
+
+VBOX_HOME=/c/Program\ Files/Oracle/VirtualBox
