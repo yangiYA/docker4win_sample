@@ -1,0 +1,83 @@
+### SFTP Serter ###
+mysftp:
+    image: atmoz/sftp:alpine
+    # https://hub.docker.com/r/atmoz/sftp/ 
+    # Dockerfile : https://github.com/atmoz/sftp/blob/alpine/Dockerfile
+
+    container_name: mysftp_01
+
+    volumes:
+        - ./mysftp:/home/${SFTP_USER}/share
+    ports:
+        #  HOST:CONTAINER
+        - "2222:22"
+
+    # command: user        :pass[:e][:uid[:gid]]
+    command: ${SFTP_USER}:123:1001
+
+
+### DB server (mysql) ###
+mymysql01:
+    restart:       always
+    image:         mysql:5.6
+    # https://hub.docker.com/_/mysql/
+    # Dockerfile : https://github.com/docker-library/mysql/blob/master/5.6/Dockerfile
+
+    container_name: mysql56_01
+
+    volumes:
+        - ./mymysql01/var/lib/mysql:/var/lib/mysql
+        - ./mymysql01/etc/mysql/conf.d:/etc/mysql/conf.d
+        - ./mymysql01/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+
+    ports:
+        #  HOST:CONTAINER
+        - 13306:3306
+
+    environment:
+        MYSQL_ROOT_PASSWORD : pass
+        MYSQL_DATABASE      : mydb
+        MYSQL_USER          : my_user
+        MYSQL_PASSWORD      : my_pass
+
+
+### AP server ###
+mytomcat01:
+    image: tomcat:jre8-alpine
+    # https://hub.docker.com/_/tomcat/ 
+    # Dockerfile : https://github.com/docker-library/tomcat/blob/master/8.0/jre8-alpine/Dockerfile
+
+    container_name: tomcat_01
+
+    volumes:
+        - ./mytomcat01/usr/local/tomcat:/usr/local/tomcat
+        - ./mytomcat01/var/log/:/var/log
+    ports:
+        # HOST:CONTAINER
+        - 18080:8080
+    links:
+        - smtp01:smtp_sv
+        - mymysql01:db_sv
+
+### Batch server and Build server ###
+# Use "docker run"  command !
+
+
+
+### dummy e-mail server ###
+# TODO
+# python -m smtpd -n -c DebuggingServer localhost:8025
+# mayby make Doker File
+smtp01:
+    image: python:3-alpine
+    # https://hub.docker.com/_/python/ 
+
+    container_name: smtp_01
+
+    volumes:
+        - ./mytomcat01/usr/local/tomcat:/usr/local/tomcat
+        - ./mytomcat01/var/log/:/var/log
+    ports:
+        # HOST:CONTAINER
+        - 18080:8080
+
