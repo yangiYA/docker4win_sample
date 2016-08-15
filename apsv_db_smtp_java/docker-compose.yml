@@ -69,15 +69,16 @@ mytomcat01:
 # python -m smtpd -n -c DebuggingServer localhost:8025
 # mayby make Doker File
 smtp01:
-    image: python:3-alpine
+    build: .
+        dockerfile: Dockerfile_smtp_dummy
+    # image: python:3-alpine
     # https://hub.docker.com/_/python/ 
 
     container_name: smtp_01
 
     volumes:
-        - ./mytomcat01/usr/local/tomcat:/usr/local/tomcat
-        - ./mytomcat01/var/log/:/var/log
+        - ./smtp01/smtp
     ports:
         # HOST:CONTAINER
-        - 18080:8080
+        - 25:10025
 

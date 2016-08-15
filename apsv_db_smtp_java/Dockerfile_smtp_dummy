@@ -1,0 +1,14 @@
+FROM python:3.3-alpine
+# https://hub.docker.com/_/python/ 
+
+MAINTAINER yangiYA
+
+ENV PYTHONUNBUFFERED 1
+
+EXPOSE 10025
+
+
+ORKDIR /smtp/logs
+
+# python -u -m smtpd -c DebuggingServer :8025
+ENTRYPOINT ["python", "-u" , "-m", "smtpd", "-n", "-c", "DebuggingServer", ":10025"]
