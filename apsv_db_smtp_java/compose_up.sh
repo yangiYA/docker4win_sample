@@ -4,4 +4,7 @@ HERE=$(cd $(dirname $0);pwd)
 
 cd $HERE
 
-docker-compose up -d
+export SFTP_USER=sftpuser
+
+docker-compose up --no-recreate -d  --build
+#docker-compose up -d

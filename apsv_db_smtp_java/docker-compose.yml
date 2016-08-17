@@ -70,14 +70,16 @@ mytomcat01:
 # mayby make Doker File
 smtp01:
     build: .
-        dockerfile: Dockerfile_smtp_dummy
-    # image: python:3-alpine
-    # https://hub.docker.com/_/python/ 
+    dockerfile: Dockerfile_smtp_dummy
+#        context: ./smtp
+#        dockerfile: Dockerfile
+        # image: python:3-alpine
+        # https://hub.docker.com/_/python/ 
 
     container_name: smtp_01
 
     volumes:
-        - ./smtp01/smtp
+        - ./smtp01/smtp:/smtp
     ports:
         # HOST:CONTAINER
         - 25:10025
