@@ -1,0 +1,5 @@
+*.zip
+*.7z
+*.bak
+tmp/
+tmp.sh

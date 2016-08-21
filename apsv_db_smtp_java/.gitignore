@@ -1,3 +1,4 @@
 mymysql01/*
-smtp01/*
 mysftp/*
+mysmtp/*
+./tmp.sh

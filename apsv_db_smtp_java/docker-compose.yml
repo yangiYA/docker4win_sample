@@ -1,5 +1,5 @@
 ### SFTP Serter ###
-mysftp:
+mysftp01:
     image: atmoz/sftp:alpine
     # https://hub.docker.com/r/atmoz/sftp/ 
     # Dockerfile : https://github.com/atmoz/sftp/blob/alpine/Dockerfile
@@ -10,7 +10,7 @@ mysftp:
         - ./mysftp:/home/${SFTP_USER}/share
     ports:
         #  HOST:CONTAINER
-        - "2222:22"
+        - "${SFTP_PORT}:22"
 
     # command: user        :pass[:e][:uid[:gid]]
     command: ${SFTP_USER}:123:1001
@@ -23,7 +23,7 @@ mymysql01:
     # https://hub.docker.com/_/mysql/
     # Dockerfile : https://github.com/docker-library/mysql/blob/master/5.6/Dockerfile
 
-    container_name: mysql56_01
+    container_name: mysql_01
 
     volumes:
         - ./mymysql01/var/lib/mysql:/var/lib/mysql
@@ -56,31 +56,30 @@ mytomcat01:
         # HOST:CONTAINER
         - 18080:8080
     links:
-        - smtp01:smtp_sv
-        - mymysql01:db_sv
+        - mysftp01:sftp01
+        - mysmtp01:smtp01
+        - mymysql01:dbserver01
+
 
 ### Batch server and Build server ###
 # Use "docker run"  command !
 
 
+### FakeSMTP ###
+mysmtp01:
+    image:         openjdk:8-jdk-alpine
+    # https://hub.docker.com/_/java/
+    # Dockerfile : https://github.com/docker-library/openjdk/blob/master/8-jdk/alpine/Dockerfile
 
-### dummy e-mail server ###
-# TODO
-# python -m smtpd -n -c DebuggingServer localhost:8025
-# mayby make Doker File
-smtp01:
-    build: .
-    dockerfile: Dockerfile_smtp_dummy
-#        context: ./smtp
-#        dockerfile: Dockerfile
-        # image: python:3-alpine
-        # https://hub.docker.com/_/python/ 
+    container_name: mysmtp_01
 
-    container_name: smtp_01
-
+    working_dir: /mysmtp
     volumes:
-        - ./smtp01/smtp:/smtp
-    ports:
-        # HOST:CONTAINER
-        - 25:10025
+        - ./mysmtp:/mysmtp
 
+    ports:
+        #  HOST:CONTAINER
+        - 25:2525
+
+    command: java -jar /mysmtp/fakeSMTP-2.0.jar -s -b -p 2525 -a 127.0.0.1 -o .
+                       # https://nilhcem.github.io/FakeSMTP/
