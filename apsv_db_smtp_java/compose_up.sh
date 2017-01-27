@@ -4,7 +4,6 @@ HERE=$(cd $(dirname $0);pwd)
 
 cd $HERE
 
-#for Windows setting mapping C:\Users ==> /c/Users
 
 
 #export BASE_DIR=/c/Users/${USERNAME}/wksp/docker4win_sample/apsv_db_smtp_java
@@ -14,6 +13,10 @@ export SFTP_USER=sftpuser
 export HOST_SFTP_PORT=10022
 
 #. ./init.txt
+
+
+#for Windows setting mapping C:\Users ==> /c/Users
+export COMPOSE_CONVERT_WINDOWS_PATHS=1
 
 #docker-compose --project-name project01  up -d  --no-recreate --build
 #docker-compose --project-name project01  up -d  --force-recreate --build
