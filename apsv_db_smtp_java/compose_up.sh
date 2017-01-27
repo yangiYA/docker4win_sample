@@ -4,22 +4,28 @@ HERE=$(cd $(dirname $0);pwd)
 
 cd $HERE
 
-. ./init.txt
+#for Windows setting mapping C:\Users ==> /c/Users
+
+
+#export BASE_DIR=/c/Users/${USERNAME}/wksp/docker4win_sample/apsv_db_smtp_java
+export BASE_DIR=.
 
 export SFTP_USER=sftpuser
-export SFTP_PORT=22
+export HOST_SFTP_PORT=10022
 
-#docker-compose up -d  --no-recreate --build
-docker-compose up -d  --force-recreate
-#docker-compose up -d
+#. ./init.txt
+
+#docker-compose --project-name project01  up -d  --no-recreate --build
+#docker-compose --project-name project01  up -d  --force-recreate --build
+docker-compose --project-name project01  up -d  --build
 
 echo -e "\n****************************************************"
 
 docker ps -a
 
 echo -e "\n"
-echo -e "****************************************************"
-echo -e "\* IP of Linux VM(for docker containers)"
+echo -e "\n****************************************************"
+echo -e "* IP of Linux VM(for docker containers)"
 docker-machine ip default
 echo -e "****************************************************"
 echo -e "\n"
